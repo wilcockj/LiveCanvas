@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastX, lastY;
 
     const clientID = Math.random().toString(36).substr(2, 9);
-    const ws = new WebSocket("ws://" + window.location.host + "/ws");
+    const socketProtocol = location.protocol.includes("https") ? "wss" : "ws";
+    const ws = new WebSocket(`${socketProtocol}://${window.location.host}${window.location.pathname}ws`);
 
     ws.onmessage = function(event) {
         const data = JSON.parse(event.data);
